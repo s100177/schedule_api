@@ -24,6 +24,17 @@
 * **schedule\_config**（对象）：调度任务配置对象，包括模型标识、站点配置、时间网格等信息。主要子字段：
 
   * `modelId`（字符串）：模型的唯一标识符，用于指定调度计算所使用的模型类型或版本。
+  * `method`（字符串）：算法。
+
+算法选项：
+
+| 模式         | 描述             |
+| ---------- | -------------- |
+| `simplex`  | 单纯形法（默认），可不传该字段       |
+| `interior` | 内点法（仅 LP）      |
+| `mip`      | 分支定界法（用于 MILP） |
+
+
   * `stations`（对象）：站点配置列表，以站点ID（如 `"A"`、`"B"` 等）为键，值为对应的站点配置对象。每个站点配置对象可包含以下内容：
 
     * `functions`（对象）：站点功能配置，例如各阶段-流量关系或成本函数等（具体定义取决于使用的模型）。
@@ -62,6 +73,7 @@
 {
   "schedule_config": {
     "modelId": "model_001",
+    "method":""
     "stations": {
       "A": {
         "functions": {},
@@ -77,7 +89,7 @@
       "step": "1",
       "unit": "day",
       "objective": { "expr": "maximize(Q)" },
-      "globalConstraints": {}
+      "globalConstraints": {},
     },
     "topology": "topology_river_demo.json"
   },
